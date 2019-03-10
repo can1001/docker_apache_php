@@ -5,6 +5,7 @@ RUN sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
 RUN apt-get clean \
     && apt-get -y update \
     && apt-get install -y --no-install-recommends \
+    dos2unix \
     locales \
     python-software-properties \
     software-properties-common \
@@ -42,6 +43,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 
 COPY run /usr/local/bin/run
+RUN dos2unix /usr/local/bin/run && apt-get --purge remove -y dos2unix
 RUN chmod +x /usr/local/bin/run
 RUN a2enmod rewrite
 
